@@ -26,9 +26,10 @@ public class SOSPopupActivity extends Activity {
 
         ok_button.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
-                Intent intent = new Intent(SOSPopupActivity.this, AccidentActivity.class);
+                //Intent intent = new Intent(SOSPopupActivity.this, AccidentActivity.class);
+                Intent intent = new Intent(SOSPopupActivity.this, MapActivity.class);
                 startActivity(intent);
-                finishAndRemoveTask();
+                //finishAndRemoveTask();
             }
         });
         cancel_button.setOnClickListener(new Button.OnClickListener(){
