@@ -28,13 +28,20 @@ public class SOSPopupActivity extends Activity {
             public void onClick(View v){
                 Intent intent = new Intent(SOSPopupActivity.this, AccidentActivity.class);
                 startActivity(intent);
+                finishAndRemoveTask();
             }
         });
         cancel_button.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
-                finish();
+                finishAndRemoveTask();
             }
         });
 
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
     }
 }
