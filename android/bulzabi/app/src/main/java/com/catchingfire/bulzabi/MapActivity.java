@@ -4,8 +4,9 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.widget.RelativeLayout;
+
+import com.skp.Tmap.TMapView;
 
 /**
  * Created by jeongsubin on 16. 9. 3..
@@ -19,11 +20,21 @@ public class MapActivity extends AppCompatActivity {
     // Declaring a Location Manager
     protected LocationManager locationManager;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.map_activity);
+    private RelativeLayout mMainRelativeLayout = null;
+    private TMapView mMapView = null;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tmap);
+
+        mMainRelativeLayout = (RelativeLayout) findViewById(R.id.mainRelativeLayout);
+        mMapView = new TMapView(this); // TmapView생성
+        mMainRelativeLayout.addView(mMapView);
+        mMapView.setSKPMapApiKey("8881c9b4-0385-3156-aaed-f2040d0c0887"); //SDK 인증키입력
+
+        latitude = location.getLatitude();
+        longitude = location.getLongitude();
 
         try {
             locationManager = (LocationManager) this
@@ -31,15 +42,17 @@ public class MapActivity extends AppCompatActivity {
 
             if (locationManager != null) {
 
-                    location = locationManager
-                            .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                location = locationManager
+                        .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
             }
         } catch(SecurityException e) {
             e.printStackTrace();
         }
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
+
+        mMapView.setLocationPoint(longitude, latitude);
+
+        /*
 
         WebView webView = (WebView)findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
@@ -48,33 +61,10 @@ public class MapActivity extends AppCompatActivity {
         webView.setWebViewClient(new WebViewClient());
 
 
-        /*webView.loadUrl("https://m.map.naver.com/route.nhn?menu=route&sy=" +
-                lat +
-                "&sx=" +
-                lon +
-                "&esy=&esx=&sname=" +
-                "현재내위치" +
-                "&sdid=&ey=" +
-                "37.4979502" +
-                "&ex=" +
-                "127.0276368" +
-                "&eey=&eex=&ename=" +
-                "불난곳" +
-                "&edid=&pathType=0&dtPathType=&idx=#/drive/detail/" +
-                "현재내위치" +
-                "," +
-                lat +
-                "," +
-                lon +
-                ",,,false,/" +
-                "불난곳" +
-                "," +
-                "127.0276368" +
-                "," +
-                "37.4979502" +
-                ",,,false,/2/0/map/1");*/
         webView.loadUrl("https://m.map.naver.com/route.nhn?menu=route&sy=" +
                 longitude +"&sx="+latitude+"&esy=&esx=&sname=코딩=&ey=37.4979502&ex=127.0276368&eey=&eex=&ename=안재영=&pathType=0&dtPathType=&idx=#/drive/detail/코딩해라,126.8966655,37.4830969,,,false,/안재영,127.0276368,37.4979502,,,false,/2/0/map/1");
+    */
     }
+
 
 }

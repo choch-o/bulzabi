@@ -4,6 +4,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WRITE_OWNER_DATA"/>
+    <uses-permission android:name="android.permission.ACCESS_READ_OWNER_DATA"/>
 
     <application
         android:allowBackup="true"
@@ -26,7 +29,8 @@
             android:theme="@android:style/Theme.Translucent" >
         </activity>
         <activity
-            android:name=".MapActivity">
+            android:name=".MapActivity"
+            android:label="tmap">
         </activity>
         <activity
             android:name=".SettingActivity">
