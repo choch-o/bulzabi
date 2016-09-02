@@ -29,7 +29,7 @@ public class SOSPopupActivity extends Activity {
                 //Intent intent = new Intent(SOSPopupActivity.this, AccidentActivity.class);
                 Intent intent = new Intent(SOSPopupActivity.this, MapActivity.class);
                 startActivity(intent);
-                //finishAndRemoveTask();
+                finishAndRemoveTask();
             }
         });
         cancel_button.setOnClickListener(new Button.OnClickListener(){
