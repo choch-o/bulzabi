@@ -14,6 +14,7 @@ import android.widget.Button;
 public class SOSPopupActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final long time1 = System.currentTimeMillis ();
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
@@ -28,6 +29,7 @@ public class SOSPopupActivity extends Activity {
             public void onClick(View v){
                 //Intent intent = new Intent(SOSPopupActivity.this, TmapActivity.class);
                 Intent intent = new Intent(SOSPopupActivity.this, MapActivity.class);
+                intent.putExtra("current_time", time1);
                 startActivity(intent);
                 finishAndRemoveTask();
             }

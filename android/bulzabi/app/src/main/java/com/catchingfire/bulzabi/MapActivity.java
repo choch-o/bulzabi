@@ -1,17 +1,22 @@
 package com.catchingfire.bulzabi;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.skp.Tmap.TMapData;
 import com.skp.Tmap.TMapPoint;
 import com.skp.Tmap.TMapPolyLine;
 import com.skp.Tmap.TMapView;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by jeongsubin on 16. 9. 3..
@@ -22,18 +27,26 @@ public class MapActivity extends AppCompatActivity {
     double Latitude; // Latitude
     double Longitude; // Longitude
 
+    private Timer mTimer;
+    private TextView timer_text;
+    private Handler handler;
+    private int mValue = 0;
+    int min = 0;
+    int sec =0;
+
     // Declaring a Location Manager
     protected LocationManager locationManager;
 
-    private RelativeLayout mMainRelativeLayout = null;
+    private LinearLayout mMainRelativeLayout = null;
     private TMapView mMapView = null;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tmap);
 
-        mMainRelativeLayout = (RelativeLayout) findViewById(R.id.mainRelativeLayout);
+        mMainRelativeLayout = (LinearLayout) findViewById(R.id.mainRelativeLayout);
 
 
         try {
@@ -63,6 +76,32 @@ public class MapActivity extends AppCompatActivity {
 
         mMainRelativeLayout.addView(mMapView);
         mMapView.setSKPMapApiKey("8881c9b4-0385-3156-aaed-f2040d0c0887"); //SDK 인증키입력
+
+        Intent intent = getIntent();
+        long time1 = intent.getLongExtra("current_time",0);
+        long time2 = System.currentTimeMillis ();
+        textView = (TextView)findViewById(R.id.timer);
+        mValue = (int) (time2-time1)/1000;
+
+        mTimer = new Timer(true);
+        handler = new Handler();
+        mTimer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mValue++;
+                                        System.out.println("Hello  "+ mValue);
+                                        /*String time =Integer.toString(mValue);
+                                                setTime*/
+                                        textView.setText(setTime());
+
+                                    }
+                                });
+                            }
+                        }, 1000,1000
+        );
 
 
 
@@ -146,6 +185,15 @@ public class MapActivity extends AppCompatActivity {
 
             }
         });
+    }
+    public String setTime(){
+        sec = mValue;
+        if (mValue >= 60){
+            min++;
+            mValue -=60;
+            sec = mValue;
+        }
+        return Integer.toString(min)+" : "+ Integer.toString(sec);
     }
 
 
