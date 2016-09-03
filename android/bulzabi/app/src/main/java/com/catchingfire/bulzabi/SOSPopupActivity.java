@@ -31,6 +31,9 @@ public class SOSPopupActivity extends Activity {
             public void onClick(View v){
                 //Intent intent = new Intent(SOSPopupActivity.this, TmapActivity.class);
                 Intent intent = new Intent(SOSPopupActivity.this, MapActivity.class);
+                intent.putExtra("time", getIntent().getExtras().getString("time"));
+                intent.putExtra("latlng", getIntent().getExtras().getString("latlng"));
+                intent.putExtra("location", getIntent().getExtras().getString("location"));
                 intent.putExtra("current_time", time1);
                 startActivity(intent);
                 if(Build.VERSION.SDK_INT >= 21) {
@@ -53,4 +56,5 @@ public class SOSPopupActivity extends Activity {
     {
         super.onDestroy();
     }
+
 }

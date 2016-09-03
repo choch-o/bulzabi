@@ -146,7 +146,7 @@ public class MapActivity extends AppCompatActivity implements TMapGpsManager.onL
 
     private void drawMapPath() {
         TMapPoint point1 = mMapView.getLocationPoint();
-        TMapPoint point2 = randomTMapPoint();
+        TMapPoint point2 = destinationTMapPoint();
 
         TMapData tmapdata = new TMapData();
 
@@ -182,9 +182,22 @@ public class MapActivity extends AppCompatActivity implements TMapGpsManager.onL
         return point;
     }
 
+    private TMapPoint destinationTMapPoint(){
+        String lanlng_pair = getIntent().getExtras().getString("latlng");
+        String lanlng_separated[] = lanlng_pair.split(",");
+        double latitude = Double.valueOf(lanlng_separated[0].split("\\(")[1]);
+        double longitude = Double.valueOf(lanlng_separated[1].split("\\)")[0]);
+
+        LogManager.printLog("destinationTMapPoint" + latitude + " " + longitude);
+
+        TMapPoint point = new TMapPoint(latitude, longitude);
+
+        return point;
+    }
+
     public void drawPedestrianPath() {
         TMapPoint point1 = mMapView.getCenterPoint();
-        TMapPoint point2 = randomTMapPoint();
+        TMapPoint point2 = destinationTMapPoint();
 
         TMapData tmapdata = new TMapData();
 
