@@ -10,18 +10,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.skp.Tmap.TMapCircle;
 import com.skp.Tmap.TMapData;
+import com.skp.Tmap.TMapGpsManager;
 import com.skp.Tmap.TMapPoint;
 import com.skp.Tmap.TMapPolyLine;
 import com.skp.Tmap.TMapView;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
  * Created by jeongsubin on 16. 9. 3..
  */
-public class MapActivity extends AppCompatActivity {
+public class MapActivity extends AppCompatActivity implements TMapGpsManager.onLocationChangedCallback {
 
     Location location; // Location
     double Latitude; // Latitude
@@ -41,12 +44,26 @@ public class MapActivity extends AppCompatActivity {
     private TMapView mMapView = null;
     private TextView textView;
 
+    private static int mCircleID;
+    ArrayList<String> mArrayCircleID;
+
+    @Override
+    public void onLocationChange(Location location) {
+        LogManager.printLog("onLocationChange " + location.getLatitude() +  " " + location.getLongitude() + " " + location.getSpeed() + " " + location.getAccuracy());
+        mMapView.setLocationPoint(location.getLongitude(), location.getLatitude());
+        //mMapView.setCenterPoint(location.getLongitude(), location.getLatitude());
+        removeTMapCircle();
+        addTMapCircle();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tmap);
 
         mMainRelativeLayout = (LinearLayout) findViewById(R.id.mainRelativeLayout);
+        mCircleID = 0;
+        mArrayCircleID = new ArrayList<String>();
 
 
         try {
@@ -76,6 +93,7 @@ public class MapActivity extends AppCompatActivity {
 
         mMainRelativeLayout.addView(mMapView);
         mMapView.setSKPMapApiKey("8881c9b4-0385-3156-aaed-f2040d0c0887"); //SDK 인증키입력
+        mMapView.setTrackingMode(true);
 
         Intent intent = getIntent();
         long time1 = intent.getLongExtra("current_time",0);
@@ -108,6 +126,7 @@ public class MapActivity extends AppCompatActivity {
 
         //drawMapPath();
         drawPedestrianPath();
+        addTMapCircle();
 
     }
 
@@ -162,7 +181,7 @@ public class MapActivity extends AppCompatActivity {
         tmapdata.findPathDataWithType(TMapData.TMapPathType.PEDESTRIAN_PATH, point1, point2, new TMapData.FindPathDataListenerCallback() {
             @Override
             public void onFindPathData(TMapPolyLine polyLine) {
-                polyLine.setLineColor(Color.BLUE);
+                polyLine.setLineColor(Color.RED);
                 polyLine.setLineWidth(20);
                 mMapView.addTMapPath(polyLine);
                 final double distance = polyLine.getDistance(); //meter
@@ -173,7 +192,7 @@ public class MapActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 // 해당 작업을 처리함
-                                distance_textview.setText("거리: " + (int)Math.round(distance/1000.0)+"km");
+                                distance_textview.setText("거리: " + Math.round(distance*10/1000.0)/10.0+"km");
                                 double time = distance / 6.0; //hours
 
                                 time_textview.setText("시간: " + (int)Math.round(time/60.0)+"분");
@@ -194,6 +213,35 @@ public class MapActivity extends AppCompatActivity {
             sec = mValue;
         }
         return Integer.toString(min)+" : "+ Integer.toString(sec);
+    }
+
+    public void addTMapCircle() {
+        TMapCircle circle = new TMapCircle();
+
+        circle.setRadius(20);
+        circle.setLineColor(Color.BLUE);
+        circle.setAreaColor(Color.BLUE);
+        circle.setAreaAlpha(50);
+        circle.setCircleWidth((float)10);
+        circle.setRadiusVisible(true);
+
+        TMapPoint point = mMapView.getLocationPoint();
+        LogManager.printLog("currentTMapCirclePoint" + point.getLatitude() + " " + point.getLongitude());
+        circle.setCenterPoint(point);
+
+
+        String strID = String.format("circle%d", mCircleID++);
+        mMapView.addTMapCircle(strID, circle);
+        mArrayCircleID.add(strID);
+    }
+
+    public void removeTMapCircle() {
+        if(mArrayCircleID.size() <= 0 )
+            return;
+
+        String strCircleID = mArrayCircleID.get(mArrayCircleID.size() - 1 );
+        mMapView.removeTMapCircle(strCircleID);
+        mArrayCircleID.remove(mArrayCircleID.size() - 1);
     }
 
 
