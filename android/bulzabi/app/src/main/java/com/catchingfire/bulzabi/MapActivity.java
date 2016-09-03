@@ -78,7 +78,7 @@ public class MapActivity extends AppCompatActivity {
         mMapView.setSKPMapApiKey("8881c9b4-0385-3156-aaed-f2040d0c0887"); //SDK 인증키입력
 
         Intent intent = getIntent();
-        long time1 = intent.getLongExtra("current_time",0);
+        long time1 = intent.getLongExtra("current_time", 0);
         long time2 = System.currentTimeMillis ();
         textView = (TextView)findViewById(R.id.timer);
         mValue = (int) (time2-time1)/1000;
@@ -96,19 +96,14 @@ public class MapActivity extends AppCompatActivity {
                                         /*String time =Integer.toString(mValue);
                                                 setTime*/
                                         textView.setText(setTime());
-
                                     }
                                 });
                             }
                         }, 1000,1000
         );
 
-
-
-
         //drawMapPath();
         drawPedestrianPath();
-
     }
 
     private void drawMapPath() {
@@ -173,16 +168,13 @@ public class MapActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 // 해당 작업을 처리함
-                                distance_textview.setText("거리: " + (int)Math.round(distance/1000.0)+"km");
+                                distance_textview.setText(Integer.toString((int)Math.round(distance/1000.0)));
                                 double time = distance / 6.0; //hours
-
-                                time_textview.setText("시간: " + (int)Math.round(time/60.0)+"분");
+                                time_textview.setText(Integer.toString((int)Math.round(time/60.0)));
                             }
                         });
                     }
                 }).start();
-
-
             }
         });
     }
