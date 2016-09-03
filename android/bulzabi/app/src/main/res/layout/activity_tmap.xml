@@ -12,7 +12,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:weightSum="2">
-            <TextView
+            <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="화재 발생 후"
@@ -31,7 +31,13 @@
                 android:paddingRight="20dp"
                 android:gravity="top"
                 android:layout_weight="1">
-            </TextView>
+            </TextView> -->
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="1dp"
+                android:paddingLeft="20dp"
+                android:src="@drawable/clock_icon"/>
         </LinearLayout>
 
         <TextView

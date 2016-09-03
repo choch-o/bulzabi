@@ -67,7 +67,102 @@
             android:layout_below="@+id/profile_layout"
             android:layout_marginTop="5dp"
             android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/profile_job_fire_icon"
+                    android:id="@+id/profile_job_icon"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="#fff"
+                    android:clickable="true"
+                    android:elevation="4dp"
+                    android:padding="20dp"
+                    android:layout_toRightOf="@+id/profile_job_icon"
+                    android:text="직위: 의용소방대원"
+                    android:id="@+id/profile_job_text" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/profile_map"
+                    android:id="@+id/profile_region_icon"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:visibility="invisible"
+                    android:layout_below="@+id/profile_region_icon"
+                    android:src="@drawable/profile_map"
+                    android:id="@+id/profile_region_icon2"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:visibility="invisible"
+                    android:layout_below="@+id/profile_region_icon2"
+                    android:src="@drawable/profile_map"
+                    android:id="@+id/profile_region_icon3"/>
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginTop="3dp"
+                    android:background="#fff"
+                    android:clickable="true"
+                    android:elevation="4dp"
+                    android:layout_toRightOf="@+id/profile_region_icon"
+                    android:id="@+id/profile_region_text"
+                    android:padding="20dp"
+                    android:text="활동구역: 인천남부소방서 " />
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginTop="3dp"
+                    android:background="#fff"
+                    android:clickable="true"
+                    android:elevation="4dp"
+                    android:padding="20dp"
+                    android:layout_toRightOf="@+id/profile_region_icon2"
+                    android:id="@+id/profile_region_text1"
+                    android:layout_below="@+id/profile_region_text"
+                    android:text="Field 4" />
 
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="#fff"
+                    android:clickable="true"
+                    android:elevation="4dp"
+                    android:padding="20dp"
+                    android:layout_toRightOf="@+id/profile_region_icon3"
+                    android:layout_below="@+id/profile_region_text1"
+                    android:text="Field 5" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/profile_rescue_count"
+                android:id="@+id/profile_count_icon"/>
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -75,52 +170,11 @@
                 android:background="#fff"
                 android:clickable="true"
                 android:elevation="4dp"
-                android:padding="20dp"
-                android:text="직위: 의용소방대원" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_marginBottom="3dp"
-                android:layout_marginTop="3dp"
-                android:background="#fff"
-                android:clickable="true"
-                android:elevation="4dp"
-                android:padding="20dp"
-                android:text="활동구역: 인천남부소방서 " />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="#fff"
-                android:clickable="true"
-                android:elevation="4dp"
+                android:layout_toRightOf="@+id/profile_count_icon"
                 android:padding="20dp"
                 android:text="구조 참여 횟수: 7" />
+            </RelativeLayout>
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_marginBottom="3dp"
-                android:layout_marginTop="3dp"
-                android:background="#fff"
-                android:clickable="true"
-                android:elevation="4dp"
-                android:padding="20dp"
-                android:text="Field 4" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="#fff"
-                android:clickable="true"
-                android:elevation="4dp"
-                android:padding="20dp"
-                android:text="Field 5" />
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

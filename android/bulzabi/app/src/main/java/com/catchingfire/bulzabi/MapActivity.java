@@ -32,7 +32,7 @@ public class MapActivity extends AppCompatActivity {
     private Handler handler;
     private int mValue = 0;
     int min = 0;
-    int sec =0;
+    int sec = 0;
 
     // Declaring a Location Manager
     protected LocationManager locationManager;
@@ -164,7 +164,7 @@ public class MapActivity extends AppCompatActivity {
     }
     public String setTime(){
         sec = mValue;
-        if (mValue >= 60){
+        while (mValue >= 60){
             min++;
             mValue -=60;
             sec = mValue;
