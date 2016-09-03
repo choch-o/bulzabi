@@ -106,23 +106,24 @@ function onSubmit()
 
     var re = new RegExp("\.[0-9]{3}Z");
     var dateString = new Date(Date.now()).toISOString().replace(re, '').replace('T', ' ');
-    var addressString = codeAddressToLatlng($('#textAddress').val());
- 
-console.log("addressString: "+addressString);
- 
-    $.ajax({
-      type: 'GET',
-      url: '/searching',
-      data: {
-        time: dateString,
-        latlng: addressString
-      },
-      success: function(data) {
-        console.log("main.js: return from server ");
-      },
-      error: function() {
-        console.log("main.js: error from server");
-      }
+    var locationString = $('#textAddress').val();
+    var p = codeAddressToLatlng(locationString);
+    p.then(function(addressString) {
+      $.ajax({
+        type: 'GET',
+        url: '/searching',
+        data: {
+          time: dateString,
+          latlng: addressString,
+          location: locationString
+        },
+        success: function(data) {
+          console.log("main.js: return from server ");
+        },
+        error: function() {
+          console.log("main.js: error from server");
+        }
+      });
     });
   }, 1000);
 }

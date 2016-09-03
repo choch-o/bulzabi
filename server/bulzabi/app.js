@@ -49,7 +49,8 @@ app.get('/searching', function(req, res){
     body : JSON.stringify({
       "data": {
         "time": req.query.time,
-        "latlng": req.query.latlng
+        "latlng": req.query.latlng,
+        "location": req.query.location
       },
       "to": "/topics/notice"
     })

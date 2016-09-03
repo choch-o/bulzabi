@@ -157,21 +157,17 @@ function drawCircle(latlng, radius) {
 }
 
 function codeAddressToLatlng(address) {
-  var addressString;
-  var p =  new Promise(function(resolve, reject) {
-   geocoder.geocode( { 'address': address }, function(results, status) {
-    if (status == google.maps.GeocoderStatus.OK) {
-      addressString = results[0].geometry.location.toString();
-      resolve(addressString);
-      console.log("codeAddressToLatlng: "+address+" is converted to "+addressString);
-    } else {
-      console.log("Geocode was not successful for the following reason: " + status);
-      reject();
-    }
-   });
-  });
-  p.then(function(result) {
-    return result;
+  return new Promise(function(resolve, reject) {
+    geocoder.geocode( { 'address': address }, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        addressString = results[0].geometry.location.toString();
+        console.log("codeAddressToLatlng: "+address+" is converted to "+addressString);
+        resolve(addressString);
+      } else {
+        console.log("Geocode was not successful for the following reason: " + status);
+        reject();
+      }
+    });
   });
 }
 
