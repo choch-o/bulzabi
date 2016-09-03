@@ -11,4 +11,21 @@
         android:layout_weight="1"
         android:paddingTop="1dip">
     </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tmap_distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="이동거리: "
+            android:textSize="30dp"/>
+        <TextView
+            android:id="@+id/tmap_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="소요시간: "
+            android:textSize="30dp"/>
+    </LinearLayout>
 </LinearLayout>

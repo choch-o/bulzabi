@@ -6,6 +6,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.skp.Tmap.TMapData;
 import com.skp.Tmap.TMapPoint;
@@ -64,6 +65,8 @@ public class MapActivity extends AppCompatActivity {
         mMapView.setSKPMapApiKey("8881c9b4-0385-3156-aaed-f2040d0c0887"); //SDK 인증키입력
 
 
+
+
         //drawMapPath();
         drawPedestrianPath();
 
@@ -113,12 +116,34 @@ public class MapActivity extends AppCompatActivity {
 
         TMapData tmapdata = new TMapData();
 
+        final TextView distance_textview = (TextView)findViewById(R.id.tmap_distance);
+        final TextView time_textview = (TextView)findViewById(R.id.tmap_time);
+
+
         tmapdata.findPathDataWithType(TMapData.TMapPathType.PEDESTRIAN_PATH, point1, point2, new TMapData.FindPathDataListenerCallback() {
             @Override
             public void onFindPathData(TMapPolyLine polyLine) {
                 polyLine.setLineColor(Color.BLUE);
                 polyLine.setLineWidth(20);
                 mMapView.addTMapPath(polyLine);
+                final double distance = polyLine.getDistance(); //meter
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(new Runnable(){
+                            @Override
+                            public void run() {
+                                // 해당 작업을 처리함
+                                distance_textview.setText("거리: " + (int)Math.round(distance/1000.0)+"km");
+                                double time = distance / 6.0; //hours
+
+                                time_textview.setText("시간: " + (int)Math.round(time/60.0)+"분");
+                            }
+                        });
+                    }
+                }).start();
+
+
             }
         });
     }
