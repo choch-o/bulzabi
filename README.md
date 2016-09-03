@@ -1,1 +1,5 @@
 # bulzabi
+
+
+Developers:
+JaeSeo Lee
