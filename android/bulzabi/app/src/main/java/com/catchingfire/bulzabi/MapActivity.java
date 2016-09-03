@@ -1,16 +1,22 @@
 package com.catchingfire.bulzabi;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.skp.Tmap.TMapData;
 import com.skp.Tmap.TMapPoint;
 import com.skp.Tmap.TMapPolyLine;
 import com.skp.Tmap.TMapView;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by jeongsubin on 16. 9. 3..
@@ -21,18 +27,26 @@ public class MapActivity extends AppCompatActivity {
     double Latitude; // Latitude
     double Longitude; // Longitude
 
+    private Timer mTimer;
+    private TextView timer_text;
+    private Handler handler;
+    private int mValue = 0;
+    int min = 0;
+    int sec =0;
+
     // Declaring a Location Manager
     protected LocationManager locationManager;
 
-    private RelativeLayout mMainRelativeLayout = null;
+    private LinearLayout mMainRelativeLayout = null;
     private TMapView mMapView = null;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tmap);
 
-        mMainRelativeLayout = (RelativeLayout) findViewById(R.id.mainRelativeLayout);
+        mMainRelativeLayout = (LinearLayout) findViewById(R.id.mainRelativeLayout);
 
 
         try {
@@ -62,6 +76,34 @@ public class MapActivity extends AppCompatActivity {
 
         mMainRelativeLayout.addView(mMapView);
         mMapView.setSKPMapApiKey("8881c9b4-0385-3156-aaed-f2040d0c0887"); //SDK 인증키입력
+
+        Intent intent = getIntent();
+        long time1 = intent.getLongExtra("current_time",0);
+        long time2 = System.currentTimeMillis ();
+        textView = (TextView)findViewById(R.id.timer);
+        mValue = (int) (time2-time1)/1000;
+
+        mTimer = new Timer(true);
+        handler = new Handler();
+        mTimer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mValue++;
+                                        System.out.println("Hello  "+ mValue);
+                                        /*String time =Integer.toString(mValue);
+                                                setTime*/
+                                        textView.setText(setTime());
+
+                                    }
+                                });
+                            }
+                        }, 1000,1000
+        );
+
+
 
 
         //drawMapPath();
@@ -113,14 +155,45 @@ public class MapActivity extends AppCompatActivity {
 
         TMapData tmapdata = new TMapData();
 
+        final TextView distance_textview = (TextView)findViewById(R.id.tmap_distance);
+        final TextView time_textview = (TextView)findViewById(R.id.tmap_time);
+
+
         tmapdata.findPathDataWithType(TMapData.TMapPathType.PEDESTRIAN_PATH, point1, point2, new TMapData.FindPathDataListenerCallback() {
             @Override
             public void onFindPathData(TMapPolyLine polyLine) {
                 polyLine.setLineColor(Color.BLUE);
                 polyLine.setLineWidth(20);
                 mMapView.addTMapPath(polyLine);
+                final double distance = polyLine.getDistance(); //meter
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(new Runnable(){
+                            @Override
+                            public void run() {
+                                // 해당 작업을 처리함
+                                distance_textview.setText("거리: " + (int)Math.round(distance/1000.0)+"km");
+                                double time = distance / 6.0; //hours
+
+                                time_textview.setText("시간: " + (int)Math.round(time/60.0)+"분");
+                            }
+                        });
+                    }
+                }).start();
+
+
             }
         });
+    }
+    public String setTime(){
+        sec = mValue;
+        if (mValue >= 60){
+            min++;
+            mValue -=60;
+            sec = mValue;
+        }
+        return Integer.toString(min)+" : "+ Integer.toString(sec);
     }
 
 
