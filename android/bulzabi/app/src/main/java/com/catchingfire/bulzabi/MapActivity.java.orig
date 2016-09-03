@@ -121,14 +121,32 @@ public class MapActivity extends AppCompatActivity implements TMapGpsManager.onL
                             }
                         }, 1000,1000
         );
+
+<<<<<<< HEAD
+||||||| merged common ancestors
+
+
+
+=======
         gps = new TMapGpsManager(MapActivity.this);
         gps.setMinTime(1000);
         gps.setMinDistance(5);
         gps.setProvider(gps.NETWORK_PROVIDER);
         gps.OpenGps();
+
+
+
+
+>>>>>>> 9060452f95355699a8e9143ea0f9e8668a3418f0
         //drawMapPath();
         drawPedestrianPath();
+<<<<<<< HEAD
+||||||| merged common ancestors
+
+=======
         addTMapCircle();
+
+>>>>>>> 9060452f95355699a8e9143ea0f9e8668a3418f0
     }
 
     @Override
@@ -139,7 +157,7 @@ public class MapActivity extends AppCompatActivity implements TMapGpsManager.onL
 
     private void drawMapPath() {
         TMapPoint point1 = mMapView.getLocationPoint();
-        TMapPoint point2 = destinationTMapPoint();
+        TMapPoint point2 = randomTMapPoint();
 
         TMapData tmapdata = new TMapData();
 
@@ -175,22 +193,9 @@ public class MapActivity extends AppCompatActivity implements TMapGpsManager.onL
         return point;
     }
 
-    private TMapPoint destinationTMapPoint(){
-        String lanlng_pair = getIntent().getExtras().getString("latlng");
-        String lanlng_separated[] = lanlng_pair.split(",");
-        double latitude = Double.valueOf(lanlng_separated[0].split("\\(")[1]);
-        double longitude = Double.valueOf(lanlng_separated[1].split("\\)")[0]);
-
-        LogManager.printLog("destinationTMapPoint" + latitude + " " + longitude);
-
-        TMapPoint point = new TMapPoint(latitude, longitude);
-
-        return point;
-    }
-
     public void drawPedestrianPath() {
         TMapPoint point1 = mMapView.getCenterPoint();
-        TMapPoint point2 = destinationTMapPoint();
+        TMapPoint point2 = randomTMapPoint();
 
         TMapData tmapdata = new TMapData();
 
@@ -212,7 +217,13 @@ public class MapActivity extends AppCompatActivity implements TMapGpsManager.onL
                             @Override
                             public void run() {
                                 // 해당 작업을 처리함
+<<<<<<< HEAD
                                 distance_textview.setText(Integer.toString((int)Math.round(distance/1000.0)));
+||||||| merged common ancestors
+                                distance_textview.setText("거리: " + (int)Math.round(distance/1000.0)+"km");
+=======
+                                distance_textview.setText("거리: " + Math.round(distance*10/1000.0)/10.0+"km");
+>>>>>>> 9060452f95355699a8e9143ea0f9e8668a3418f0
                                 double time = distance / 6.0; //hours
                                 time_textview.setText(Integer.toString((int)Math.round(time/60.0)));
                             }
