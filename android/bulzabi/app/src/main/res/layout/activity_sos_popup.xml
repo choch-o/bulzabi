@@ -42,52 +42,54 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:weightSum="2"
-            android:paddingTop="10dp"
+            android:paddingTop="5dp"
             android:paddingBottom="10dp">
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
                 <ImageView
                     android:id="@+id/btn_ok_im"
                     android:layout_width="80dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="70dp"
                     android:background="@android:color/transparent"
                     android:src="@drawable/popup_yes0"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20dp"
                     />
                 <Button
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/btn_ok"
-                    android:text="출동
-가능"
+                    android:paddingTop="20dp"
+                    android:text="출동가능"
+                    android:textAlignment="viewEnd"
                     android:textSize="15dp"
-                    android:layout_gravity="center_vertical"
                     style="?android:attr/borderlessButtonStyle" />
-            </LinearLayout>
-            <LinearLayout
+            </RelativeLayout>
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
                 <ImageView
                     android:layout_width="45dp"
                     android:layout_height="45dp"
+                    android:layout_marginTop="10dp"
                     android:background="@android:color/transparent"
                     android:src="@drawable/popup_no0"
                     android:id="@+id/btn_cancel_img"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="20dp"/>
+                    android:layout_marginLeft="20dp" />
                 <Button
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
                     android:id="@+id/btn_cancel"
-                    android:text="출동
-불가"
+                    android:textAlignment="viewEnd"
+                    android:text="출동불가"
                     android:textSize="15dp"
+                    android:layout_marginRight="20dp"
                     style="?android:attr/borderlessButtonStyle" />
-            </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
