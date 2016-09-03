@@ -138,6 +138,12 @@ public class MapActivity extends AppCompatActivity implements TMapGpsManager.onL
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        gps.CloseGps();
+    }
+
     private void drawMapPath() {
         TMapPoint point1 = mMapView.getLocationPoint();
         TMapPoint point2 = randomTMapPoint();
@@ -220,7 +226,11 @@ public class MapActivity extends AppCompatActivity implements TMapGpsManager.onL
             mValue -=60;
             sec = mValue;
         }
-        return Integer.toString(min)+" : "+ Integer.toString(sec);
+        String sec_string = Integer.toString(sec);
+        if (sec <10){
+            sec_string = "0" + sec_string;
+        }
+        return Integer.toString(min)+" : "+ sec_string;
     }
 
     public void addTMapCircle() {
