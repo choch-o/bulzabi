@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var request = require('request');
 var fcm = require('fcm');
-
+var mongoose = require('mongoose');
 
 
 //mysql
@@ -65,6 +65,23 @@ app.get('/searching', function(req, res){
   });
   res.send(req.query.latlng);
 });
+
+// models setup
+var db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error: '));
+db.once('open', function(){
+	var volunteerSchema = new mongoose.Schema({
+		name: String,
+		phoneNumber: String,
+		locs: [{type: String, coordinates: [Number]}],
+		registration_id: String,
+		job: String
+	});
+	var Volunteer = mongoose.model('Volunteer', volunteerSchema);
+});
+
+mongoose.connect('mongodb://localhost/test');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
