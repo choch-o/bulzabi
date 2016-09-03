@@ -1,5 +1,4 @@
 # bulzabi
 
-
-Developers:
-JaeSeo Lee
+공식이름: 호루라기
+의무소방관 자동 지원 요청 시스템
