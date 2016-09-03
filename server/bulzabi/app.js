@@ -28,8 +28,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {res.render('index')});
 
+app.post('/refresh', function(req, res) {
+
+
+  console.log("refresh: start");
+  var keys = Object.keys(req.query);
+  for (var key of keys) {
+    console.log(key + ": " + keys[key]);
+  }
+}); 
+
 app.get('/searching', function(req, res){
-  var message = { title : "title" , content : "content", imgUrl : "imgUrl" , link : "link" };
   request({
     url : 'https://fcm.googleapis.com/fcm/send',
     method : 'POST',
@@ -38,8 +47,12 @@ app.get('/searching', function(req, res){
       'Authorization' : 'key=AIzaSyCo1yoH8kBAzKGGDn36HG7cV1vKMqc6-_w'
     },
     body : JSON.stringify({
-      "data" : { "message" : message },
-      "to" : "/topics/notice"
+      "data": {
+        "time": req.query.time,
+        "latlng": req.query.latlng,
+        "location": req.query.location
+      },
+      "to": "/topics/notice"
     })
   }, function(error, response, body) {
     if (error) {
@@ -50,6 +63,7 @@ app.get('/searching', function(req, res){
       console.log('Done')
     }
   });
+  res.send(req.query.latlng);
 });
 
 // catch 404 and forward to error handler
