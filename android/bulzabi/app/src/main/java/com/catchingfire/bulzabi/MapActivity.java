@@ -98,7 +98,7 @@ public class MapActivity extends AppCompatActivity implements TMapGpsManager.onL
         mMapView.setTrackingMode(true);
 
         Intent intent = getIntent();
-        long time1 = intent.getLongExtra("current_time",0);
+        long time1 = intent.getLongExtra("current_time", 0);
         long time2 = System.currentTimeMillis ();
         textView = (TextView)findViewById(R.id.timer);
         mValue = (int) (time2-time1)/1000;
@@ -116,26 +116,19 @@ public class MapActivity extends AppCompatActivity implements TMapGpsManager.onL
                                         /*String time =Integer.toString(mValue);
                                                 setTime*/
                                         textView.setText(setTime());
-
                                     }
                                 });
                             }
                         }, 1000,1000
         );
-
         gps = new TMapGpsManager(MapActivity.this);
         gps.setMinTime(1000);
         gps.setMinDistance(5);
         gps.setProvider(gps.NETWORK_PROVIDER);
         gps.OpenGps();
-
-
-
-
         //drawMapPath();
         drawPedestrianPath();
         addTMapCircle();
-
     }
 
     @Override
@@ -219,16 +212,13 @@ public class MapActivity extends AppCompatActivity implements TMapGpsManager.onL
                             @Override
                             public void run() {
                                 // 해당 작업을 처리함
-                                distance_textview.setText("거리: " + Math.round(distance*10/1000.0)/10.0+"km");
+                                distance_textview.setText(Integer.toString((int)Math.round(distance/1000.0)));
                                 double time = distance / 6.0; //hours
-
-                                time_textview.setText("시간: " + (int)Math.round(time/60.0)+"분");
+                                time_textview.setText(Integer.toString((int)Math.round(time/60.0)));
                             }
                         });
                     }
                 }).start();
-
-
             }
         });
     }
