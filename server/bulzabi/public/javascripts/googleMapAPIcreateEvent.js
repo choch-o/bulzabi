@@ -12,6 +12,7 @@ var geocoder;
 //autocomplete
 var autocomplete;
 
+
 /*
  * Initialize Google Map functions - initMap
  */
