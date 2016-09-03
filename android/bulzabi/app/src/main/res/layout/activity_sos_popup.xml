@@ -5,7 +5,6 @@
     android:gravity="center"
     android:orientation="vertical"
     android:minHeight="400dp">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,61 +12,82 @@
         android:layout_marginRight="30dp"
         android:background="#c2c2c2"
         android:orientation="vertical" >
-
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/category"
-            android:paddingLeft="20dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/accident_patient"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:text="타이틀"
-            android:layout_below="@+id/tv_content" />
-
-        <TextView
-            android:layout_toRightOf="@+id/category"
-            android:id="@+id/tv_content"
-
-            android:layout_marginLeft="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="내용" />
+            <ImageView
+                android:id="@+id/category"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/accident_patient"
+                android:gravity="center"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_toRightOf="@+id/category"
+                android:layout_centerVertical="true"
+                android:id="@+id/tv_content"
+                android:paddingRight="42dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="'대전광역시 유성구 대학로 291 한국과학기술원'에서
+사고 발생" />
         </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_height="wrap_content">
-            <ImageButton
-                android:id="@+id/btn_ok"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_marginRight="55dp"
-                android:layout_height="wrap_content"
-
-                android:background="@android:color/transparent"
-                android:src="@drawable/popup_yes2"
-                />
-            <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:src="@drawable/popup_no2"
-            android:gravity="left"
-            android:id="@+id/btn_cancel"
-            android:layout_weight="1"
-
-            android:layout_toRightOf="@+id/btn_ok"
-            />
-
-
+            android:weightSum="2"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/btn_ok_im"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/popup_yes0"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_ok"
+                    android:text="출동
+가능"
+                    android:textSize="15dp"
+                    android:layout_gravity="center_vertical"
+                    style="?android:attr/borderlessButtonStyle" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/popup_no0"
+                    android:id="@+id/btn_cancel_img"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_cancel"
+                    android:text="출동
+불가"
+                    android:textSize="15dp"
+                    style="?android:attr/borderlessButtonStyle" />
+            </LinearLayout>
         </LinearLayout>
-
-
     </LinearLayout>
-
 </LinearLayout>
