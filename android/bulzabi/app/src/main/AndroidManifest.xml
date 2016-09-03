@@ -33,6 +33,10 @@
             android:label="tmap">
         </activity>
         <activity
+            android:name="com.catchingfire.bulzabi.TMap.TmapActivity"
+            android:label="tmap_main">
+        </activity>
+        <activity
             android:name=".SettingActivity">
         </activity>
 
