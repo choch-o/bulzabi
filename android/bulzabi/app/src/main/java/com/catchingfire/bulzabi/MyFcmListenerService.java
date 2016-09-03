@@ -1,6 +1,15 @@
 package com.catchingfire.bulzabi;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.PowerManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -16,16 +25,21 @@ public class MyFcmListenerService extends FirebaseMessagingService{
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.e(TAG, "Success");
-        sendPushNotification(remoteMessage.getData().get("message"));
+        //sendPushNotification(remoteMessage.getData().get("message"));
+
+        System.out.println("received message : " + remoteMessage.getData().get("time"));
+        System.out.println("received message : " + remoteMessage.getData().get("latlng"));
+        System.out.println("received message : " + remoteMessage.getData().get("location"));
+        Intent intent_ = new Intent(this, SOSPopupActivity.class);
+        intent_.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);   // 이거 안해주면 안됨
+        intent_.putExtra("time", remoteMessage.getData().get("time"));
+        intent_.putExtra("latlng", remoteMessage.getData().get("latlng"));
+        intent_.putExtra("location", remoteMessage.getData().get("location"));
+        this.startActivity(intent_);
+
     }
 
     private void sendPushNotification(String message) {
-        System.out.println("received message : " + message);
-        Intent intent_ = new Intent(this, SOSPopupActivity.class);
-        intent_.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);   // 이거 안해주면 안됨
-        this.startActivity(intent_);
-
-        /*
         //Head-up push notification codes
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -51,7 +65,6 @@ public class MyFcmListenerService extends FirebaseMessagingService{
 
 
         notificationManager.notify(0, notificationBuilder.build());
-        */
     }
 
 }
