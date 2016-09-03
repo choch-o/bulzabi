@@ -47,6 +47,8 @@ public class MapActivity extends AppCompatActivity implements TMapGpsManager.onL
     private static int mCircleID;
     ArrayList<String> mArrayCircleID;
 
+    TMapGpsManager gps = null;
+
     @Override
     public void onLocationChange(Location location) {
         LogManager.printLog("onLocationChange " + location.getLatitude() +  " " + location.getLongitude() + " " + location.getSpeed() + " " + location.getAccuracy());
@@ -120,6 +122,12 @@ public class MapActivity extends AppCompatActivity implements TMapGpsManager.onL
                             }
                         }, 1000,1000
         );
+
+        gps = new TMapGpsManager(MapActivity.this);
+        gps.setMinTime(1000);
+        gps.setMinDistance(5);
+        gps.setProvider(gps.NETWORK_PROVIDER);
+        gps.OpenGps();
 
 
 
