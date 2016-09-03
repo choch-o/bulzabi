@@ -3,13 +3,14 @@ $('document').ready(function() {
     <nav class="row nav-wrapper">
       <div class="col s2 brand-logo">
         <a href="#!" class="breadcrumb">Catching Fire</a>
-        <a href="index.html" class="breadcrumb">Main page</a>
+        <a href="/" class="breadcrumb">Main page</a>
       </div>
     </nav>
 
-    <div class="row center valign-wrapper container">
+    <div class="row valign-wrapper">
       <div class="col s10 input-field">
-        <textarea class="materialize-textarea" id="textAddress" placeholder="사고 현장 주소를 입력하세요" type="text" style="margin-top:10px;"></textarea>
+        <!--<textarea class="materialize-textarea" id="textAddress" placeholder="사고 현장 주소를 입력하세요" type="text" style="margin-top:10px;"></textarea>-->
+        <input class="validate" type="text" id="textAddress" placeholder="사고 현장 주소를 입력하세요" type="text" style="margin-top:10px;"></input>
         <label for="textAddress">Address</label>
       </div>
       <div class="col s2 valign">
@@ -18,10 +19,10 @@ $('document').ready(function() {
     </div>
 
     <div class="row">
-      <div class="push-s1 col s8 row">
-        <section id="mapholder" class="col s12" style="height:70vh;"></section>
+      <div id="div_mapholder" class="col s9 row">
+        <section id="mapholder" class="col s12" style="height:65vh;"></section>
       </div>
-      <div class="push-s1 col s2 center">
+      <div class="col s3 right">
         <ul id="staggered-before">
           <li>
             <h5 class="center">의용 소방대원 목록</h5>
@@ -79,38 +80,50 @@ $('document').ready(function() {
       </ul>
       </div>
     </div>
-  `);
+  `)
+;
+  initMap();
 });
 
 function onSubmit()
 {
-  console.log("submitBtn is clicked") ;
-  Materialize.showStaggeredList('#staggered-after');
-  $('#staggered-before').css('display', 'none');
-  $('#staggered-after').css('opacity', '1');
-
   initMap();
-  addMarker([37.452387, 126.683409], '', icon = 'mark');
-  addMarker([37.453204, 126.678560], '1');
-  addMarker([37.455470, 126.677165], '2');
-  addMarker([37.453102, 126.690447], '3');
-  addMarker([37.453818, 126.683009], '4');
-  drawCircle([37.452387, 126.683409], 700);
-  //addRoute([37.448418, 126.668882], [37.452387, 126.683409]);
-  //addPolyLine([[37.448799, 126.668893], [37.448118, 126.679665], [37.451388, 126.679751], [37.451150, 126.683055], [37.452387, 126.683409]]);
+  setTimeout(function() {
+    console.log("submitBtn is clicked") ;
+    Materialize.showStaggeredList('#staggered-after');
+    $('#staggered-after').css('opacity', '1');
+    $('#staggered-before').addClass('hide');
+  
+    $('#div_mapholder').css('display', 'block');
+    addMarker([37.452387, 126.683409], '', icon = 'mark');
+    addMarker([37.453204, 126.678560], '1');
+    addMarker([37.455470, 126.677165], '2');
+    addMarker([37.453102, 126.690447], '3');
+    addMarker([37.453818, 126.683009], '4');
+    drawCircle([37.452387, 126.683409], 700);
+    //addRoute([37.448418, 126.668882], [37.452387, 126.683409]);
+    //addPolyLine([[37.448799, 126.668893], [37.448118, 126.679665], [37.451388, 126.679751], [37.451150, 126.683055], [37.452387, 126.683409]]);
 
-      var parameters = { search: "nonono" };
-
-      $.ajax({
-        type: 'GET',
-        url: '/searching',
-        data: parameters,
-        success: function(data) {
-          console.log("main.js: return from server");
-        },
-        error: function() {
-          console.log("main.js: error from server");
-        }
-      });
-};
+    var re = new RegExp("\.[0-9]{3}Z");
+    var dateString = new Date(Date.now()).toISOString().replace(re, '').replace('T', ' ');
+    var addressString = codeAddressToLatlng($('#textAddress').val());
+ 
+console.log("addressString: "+addressString);
+ 
+    $.ajax({
+      type: 'GET',
+      url: '/searching',
+      data: {
+        time: dateString,
+        latlng: addressString
+      },
+      success: function(data) {
+        console.log("main.js: return from server ");
+      },
+      error: function() {
+        console.log("main.js: error from server");
+      }
+    });
+  }, 1000);
+}
 

@@ -2,8 +2,15 @@ var map;
 var markers = [];
 var labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 var labelIndex = 0;
+
+//route
 var directionDisplay;
 var directionsService;
+
+//geocoding
+var geocoder;
+//autocomplete
+var autocomplete;
 
 /*
  * Initialize Google Map functions - initMap
@@ -11,6 +18,7 @@ var directionsService;
 function initMap() {
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
+  geocoder = new google.maps.Geocoder();
   var mapholder = document.getElementById("mapholder");
   var FireStationLatlon = new google.maps.LatLng(37.452490, 126.675695);
   var maxZoomLevel = 15;
@@ -23,6 +31,10 @@ function initMap() {
   }
   map = new google.maps.Map(mapholder, myOptions);
   directionsDisplay.setMap(map);
+
+  autocomplete = new google.maps.places.Autocomplete( (document.getElementById('textAddress')), { types: ['establishment'] });
+  autocomplete.addListener('place_changed', onPlaceChanged);
+
 
 /*
   // Bounds for area
@@ -142,6 +154,35 @@ function drawCircle(latlng, radius) {
     center: center,
     radius: radius
   });
+}
+
+function codeAddressToLatlng(address) {
+  var addressString;
+  var p =  new Promise(function(resolve, reject) {
+   geocoder.geocode( { 'address': address }, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      addressString = results[0].geometry.location.toString();
+      resolve(addressString);
+      console.log("codeAddressToLatlng: "+address+" is converted to "+addressString);
+    } else {
+      console.log("Geocode was not successful for the following reason: " + status);
+      reject();
+    }
+   });
+  });
+  p.then(function(result) {
+    return result;
+  });
+}
+
+function onPlaceChanged() {
+  var place = autocomplete.getPlace();
+  if (place.geometry) {
+    map.panTo(place.geometry.location);
+    map.setZoom(15);
+  } else {
+    document.getElementById('textAddress').placeholder = 'Enter a city';
+  }
 }
 
 function showAllMarker() {
