@@ -43,6 +43,8 @@ public class SOSPopupActivity extends Activity {
                 startActivity(intent);
                 if(Build.VERSION.SDK_INT >= 21) {
                     finishAndRemoveTask();
+                } else {
+                    finish();
                 }
             }
         });
@@ -50,6 +52,8 @@ public class SOSPopupActivity extends Activity {
             public void onClick(View v){
                 if(Build.VERSION.SDK_INT >= 21) {
                     finishAndRemoveTask();
+                } else {
+                    finish();
                 }
             }
         });
