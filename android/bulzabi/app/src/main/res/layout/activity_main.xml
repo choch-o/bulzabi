@@ -36,14 +36,13 @@
             android:elevation="4dp"
             android:paddingBottom="24dp">
 
-
             <TextView
                 android:id="@+id/user_profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="76dp"
-                android:text="김형석2"
+                android:text="김형석"
                 android:textColor="#fff"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -60,7 +59,6 @@
                 android:textSize="14sp" />
         </RelativeLayout>
 
-
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -74,6 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"
                     android:src="@drawable/profile_job_fire_icon"
                     android:id="@+id/profile_job_icon"/>
                 <TextView
@@ -93,8 +92,9 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"
                     android:src="@drawable/profile_map"
                     android:id="@+id/profile_region_icon"/>
                 <ImageView
@@ -125,7 +125,7 @@
                     android:layout_toRightOf="@+id/profile_region_icon"
                     android:id="@+id/profile_region_text"
                     android:padding="20dp"
-                    android:text="활동구역: 인천남부소방서 " />
+                    android:text="활동구역 1: 인천남부소방서 " />
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -139,7 +139,7 @@
                     android:layout_toRightOf="@+id/profile_region_icon2"
                     android:id="@+id/profile_region_text1"
                     android:layout_below="@+id/profile_region_text"
-                    android:text="Field 4" />
+                    android:text="활동구역 2: " />
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -151,7 +151,7 @@
                     android:padding="20dp"
                     android:layout_toRightOf="@+id/profile_region_icon3"
                     android:layout_below="@+id/profile_region_text1"
-                    android:text="Field 5" />
+                    android:text="활동구역 3: " />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"
