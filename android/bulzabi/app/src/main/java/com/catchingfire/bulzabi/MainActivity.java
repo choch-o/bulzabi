@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         profile_loc3 = (EditText)findViewById(R.id.profile_region_text2);
         profile_rescue_count = (EditText)findViewById(R.id.profile_rescue_count);
         profile_edit_button = (ImageButton)findViewById(R.id.profile_edit_button);
-
+        profile_edit_button.bringToFront();
         setAllUneditable();
 
         profile_edit_button.setOnClickListener(new View.OnClickListener() {
