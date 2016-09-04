@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.TextView;
 
 /**
  * Created by harrykim on 2016. 9. 3..
@@ -24,8 +24,13 @@ public class SOSPopupActivity extends Activity {
         layoutParams.dimAmount = 0.7f;
         getWindow().setAttributes(layoutParams);
         setContentView(R.layout.activity_sos_popup);
-        ImageButton ok_button = (ImageButton)findViewById(R.id.btn_ok);
-        ImageButton cancel_button = (ImageButton)findViewById(R.id.btn_cancel);
+        Button ok_button = (Button)findViewById(R.id.btn_ok);
+        Button cancel_button = (Button)findViewById(R.id.btn_cancel);
+
+        TextView location_text = (TextView)findViewById(R.id.tv_content);
+        String lc_txt = "'" + getIntent().getExtras().getString("location") + "'"
+                + " 긴급 상황 발생";
+        location_text.setText(lc_txt);
 
         ok_button.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){

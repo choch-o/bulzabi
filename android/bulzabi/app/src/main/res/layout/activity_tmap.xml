@@ -89,6 +89,13 @@
                 android:text="소요시간: "
                 android:textSize="20dp"
                 android:layout_marginTop="2.5dp"/>
+            <TextView
+                android:id="@+id/tmap_location_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="상세주소: "
+                android:textSize="20dp"
+                android:layout_marginTop="2.5dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -131,6 +138,19 @@
                     android:layout_height="wrap_content"
                     android:textSize="20dp"
                     android:text=" 분"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="right"
+                android:layout_marginBottom="2.5dp">
+                <TextView
+                    android:id="@+id/tmap_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:textColor="#DB4B4B" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

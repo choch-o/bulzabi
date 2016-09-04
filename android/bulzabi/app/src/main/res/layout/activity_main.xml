@@ -35,19 +35,16 @@
             android:background="#ebca0707"
             android:elevation="4dp"
             android:paddingBottom="24dp">
-
-
             <TextView
                 android:id="@+id/user_profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="76dp"
-                android:text="김형석2"
+                android:text="김형석"
                 android:textColor="#fff"
                 android:textSize="24sp"
                 android:textStyle="bold" />
-
             <TextView
                 android:id="@+id/user_profile_short_bio"
                 android:layout_width="wrap_content"
@@ -59,14 +56,13 @@
                 android:textColor="#fff"
                 android:textSize="14sp" />
         </RelativeLayout>
-
-
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/profile_layout"
             android:layout_marginTop="5dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="#ffffff">
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -74,6 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"
                     android:src="@drawable/profile_job_fire_icon"
                     android:id="@+id/profile_job_icon"/>
                 <TextView
@@ -93,14 +90,16 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="5dp"
                     android:src="@drawable/profile_map"
                     android:id="@+id/profile_region_icon"/>
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="5dp"
                     android:visibility="invisible"
                     android:layout_below="@+id/profile_region_icon"
                     android:src="@drawable/profile_map"
@@ -109,6 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"
                     android:visibility="invisible"
                     android:layout_below="@+id/profile_region_icon2"
                     android:src="@drawable/profile_map"
@@ -125,7 +125,7 @@
                     android:layout_toRightOf="@+id/profile_region_icon"
                     android:id="@+id/profile_region_text"
                     android:padding="20dp"
-                    android:text="활동구역: 인천남부소방서 " />
+                    android:text="활동구역 1: 인천남부소방서 " />
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -139,7 +139,7 @@
                     android:layout_toRightOf="@+id/profile_region_icon2"
                     android:id="@+id/profile_region_text1"
                     android:layout_below="@+id/profile_region_text"
-                    android:text="Field 4" />
+                    android:text="활동구역 2: " />
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -151,16 +151,17 @@
                     android:padding="20dp"
                     android:layout_toRightOf="@+id/profile_region_icon3"
                     android:layout_below="@+id/profile_region_text1"
-                    android:text="Field 5" />
+                    android:text="활동구역 3: " />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="3dp"
                 android:src="@drawable/profile_rescue_count"
                 android:id="@+id/profile_count_icon"/>
             <TextView
