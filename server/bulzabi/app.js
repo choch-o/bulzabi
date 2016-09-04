@@ -22,21 +22,13 @@ app.set('view engine', 'jade');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {res.render('index')});
 
-app.post('/refresh', function(req, res) {
-
-
-  console.log("refresh: start");
-  var keys = Object.keys(req.query);
-  for (var key of keys) {
-    console.log(key + ": " + keys[key]);
-  }
-}); 
+ 
 
 app.get('/searching', function(req, res){
   request({
@@ -68,6 +60,7 @@ app.get('/searching', function(req, res){
 
 // models setup
 var db = mongoose.connection;
+var Volunteer, tokenModel;
 
 db.on('error', console.error.bind(console, 'connection error: '));
 db.once('open', function(){
@@ -78,10 +71,61 @@ db.once('open', function(){
 		registration_id: String,
 		job: String
 	});
-	var Volunteer = mongoose.model('Volunteer', volunteerSchema);
+	Volunteer = mongoose.model('Volunteer', volunteerSchema);
+
+        var tokenSchema;
+        //tokenModel;
 });
 
 mongoose.connect('mongodb://localhost/test');
+
+app.post('/register', function(req, res) {
+  console.log("register: start");
+
+  var newVolunteer = new Volunteer({
+    name: req.body.name,
+    phoneNumber: req.body.phoneNumber,
+    locs: [{ type: req.body.locs1.addr, coordinates: [req.body.locs1.lat, req.body.locs1.lng] },
+      { type: req.body.locs2.addr, coordinates: [req.body.locs2.lat, req.body.locs2.lng] },
+      { type: req.body.locs3.addr, coordinates: [req.body.locs3.lat, req.body.locs3.lng] } ],
+    registration_id: req.body.registration_id,
+    job: req.body.job
+  });
+  newVolunteer.save(function(err, book){
+    if(err) return console.error(err);
+    console.dir(newVolunteer);
+  });
+});
+
+app.post('/refresh', function(req, res) {
+  console.log("refresh: PHONE_NUMBER"+req.query.phoneNumber);
+  console.log("refresh: TOKEN"+req.body.phoneNumber);
+  console.log("refresh: TOKEN"+req.params.phoneNumber);
+
+  console.log("refresh: TOKEN"+req.query.registration_id);
+  console.log("refresh: TOKEN"+req.body.registration_id);
+  console.log("refresh: TOKEN"+req.params.registration_id);
+
+  
+  var keys = Object.keys(req.body);
+  for (var key of keys) {
+    console.log(key + ": " + req.body.key);
+  }
+  var keyss = Object.keys(req.params);
+  for (var keyy of keyss) {
+    console.log(keyy + ": " + req.params.keyy);
+  }
+
+  tokenModel.findOne({phoneNumber: req.body.PHONE_NUMBER}, function(err, token) {
+    if(err) return res.status(500).json({error: err});
+    if(!token) {
+      // new token. insert it.
+      console.log("new token is inserted");
+    }
+    // replace old token with new one.
+    console.log("old token is replaced");
+  })
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
