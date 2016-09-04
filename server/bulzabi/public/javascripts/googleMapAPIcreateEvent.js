@@ -16,16 +16,16 @@ var autocomplete;
 /*
  * Initialize Google Map functions - initMap
  */
-function initMap() {
+function initMap(lat, lng) {
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
   geocoder = new google.maps.Geocoder();
   var mapholder = document.getElementById("mapholder");
-  var FireStationLatlon = new google.maps.LatLng(37.452490, 126.675695);
-  var maxZoomLevel = 15;
+  var center = new google.maps.LatLng(lat, lng);
+  var maxZoomLevel = 14;
 
   var myOptions = {
-    center: FireStationLatlon,
+    center: center,
     zoom: maxZoomLevel,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     navigationControlOptions: { style: google.maps.NavigationControlStyle.SMALL }
