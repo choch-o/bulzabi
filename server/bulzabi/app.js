@@ -98,10 +98,23 @@ app.post('/register', function(req, res) {
 });
 
 app.post('/refresh', function(req, res) {
-  console.log("refresh: PHONE_NUMBER"+req.body.PHONE_NUMBER);
-  console.log("refresh: TOKEN"+req.body.TOKEN);
-  console.log("refresh: PHONE_NUMBER"+req.params.PHONE_NUMBER);
-  console.log("refresh: TOKEN"+req.params.TOKEN);
+  console.log("refresh: PHONE_NUMBER"+req.query.phoneNumber);
+  console.log("refresh: TOKEN"+req.body.phoneNumber);
+  console.log("refresh: TOKEN"+req.params.phoneNumber);
+
+  console.log("refresh: TOKEN"+req.query.registration_id);
+  console.log("refresh: TOKEN"+req.body.registration_id);
+  console.log("refresh: TOKEN"+req.params.registration_id);
+
+  
+  var keys = Object.keys(req.body);
+  for (var key of keys) {
+    console.log(key + ": " + req.body.key);
+  }
+  var keyss = Object.keys(req.params);
+  for (var keyy of keyss) {
+    console.log(keyy + ": " + req.params.keyy);
+  }
 
   tokenModel.findOne({phoneNumber: req.body.PHONE_NUMBER}, function(err, token) {
     if(err) return res.status(500).json({error: err});
