@@ -196,6 +196,7 @@ public class MapActivity extends AppCompatActivity implements TMapGpsManager.onL
 
         final TextView distance_textview = (TextView)findViewById(R.id.tmap_distance);
         final TextView time_textview = (TextView)findViewById(R.id.tmap_time);
+        final TextView location_textview = (TextView)findViewById(R.id.tmap_location);
 
 
         tmapdata.findPathDataWithType(TMapData.TMapPathType.PEDESTRIAN_PATH, point1, point2, new TMapData.FindPathDataListenerCallback() {
@@ -215,6 +216,7 @@ public class MapActivity extends AppCompatActivity implements TMapGpsManager.onL
                                 distance_textview.setText(Integer.toString((int)Math.round(distance/1000.0)));
                                 double time = distance / 6.0; //hours
                                 time_textview.setText(Integer.toString((int)Math.round(time/60.0)));
+                                location_textview.setText(getIntent().getExtras().getString("location"));
                             }
                         });
                     }
